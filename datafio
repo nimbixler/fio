@@ -1,0 +1,11 @@
+#!/bin/sh
+
+dname=/data/.fio-test-$$
+mkdir -p $dname
+cd $dname
+
+fio --name=randwrite --ioengine=libaio --iodepth=1 --rw=randwrite --bs=4k --direct=0 --size=512M --numjobs=8 --runtime=240 --group_reporting
+RV=$?
+cd /tmp
+rm -rf $dname
+exit $RV
